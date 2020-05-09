@@ -1,0 +1,66 @@
+<div class="clr-row">
+    <div class="clr-col-6">
+        <div class="btn-group btn-primary btn-sm">
+            <button class="btn" (click)="showTradeModal = true">Trade</button>
+            <button class="btn btn-success" (click)="refresh()">Refresh</button>
+            <button class="btn btn-danger" (click)="deleteAll()">Delete All</button>
+        </div>
+    </div>
+    <div class="clr-col-6 text-right">
+        <div class="btn-group btn-primary btn-sm btn-icon">
+            <button class="btn"><clr-icon shape="view-columns"></clr-icon></button>
+            <button class="btn"><clr-icon shape="axis-chart"></clr-icon></button>
+        </div>
+    </div>
+</div>
+<div class="clr-row">
+    <div class="clr-col-12">
+        <clr-datagrid>
+            <clr-dg-column>#</clr-dg-column>
+            <clr-dg-column>Creation Time</clr-dg-column>
+            <clr-dg-column>Side</clr-dg-column>
+            <clr-dg-column>Symbol</clr-dg-column>
+            <clr-dg-column>Qty</clr-dg-column>
+            <clr-dg-column>Qty Placed</clr-dg-column>
+            <clr-dg-column>Qty Executed</clr-dg-column>
+            <clr-dg-column>Limit Price</clr-dg-column>
+            <clr-dg-column>Priority</clr-dg-column>
+            <clr-dg-column>Status</clr-dg-column>
+            <clr-dg-column>Trader Id</clr-dg-column>
+
+            <clr-dg-row *clrDgItems="let order of orders" [clrDgItem]="order">
+                <clr-dg-cell>{{order.id}}</clr-dg-cell>
+                <clr-dg-cell>{{order.creationTime | date:'medium'}}</clr-dg-cell>
+                <clr-dg-cell>{{order.side}}</clr-dg-cell>
+                <clr-dg-cell>{{order.symbol}}</clr-dg-cell>
+                <clr-dg-cell>{{order.quantity}}</clr-dg-cell>
+                <clr-dg-cell>{{order.quantityPlaced}}</clr-dg-cell>
+                <clr-dg-cell>{{order.quantityExecuted}}</clr-dg-cell>
+                <clr-dg-cell>{{order.limitPrice | currency}}</clr-dg-cell>
+                <clr-dg-cell>{{order.priority}}</clr-dg-cell>
+                <clr-dg-cell>{{order.status}}</clr-dg-cell>
+                <clr-dg-cell>{{order.traderId}}</clr-dg-cell>
+            </clr-dg-row>
+
+            <clr-dg-footer>{{orders.length}} orders</clr-dg-footer>
+        </clr-datagrid>
+
+    </div>
+</div>
+
+
+<clr-modal [(clrModalOpen)]="showTradeModal" [clrModalSize]="'sm'">
+    <h3 class="modal-title">Create Multiple Trades</h3>
+    <div class="modal-body">
+        <form clrForm clrLayout="vertical">
+            <clr-input-container>
+                <label>Enter number of trades:</label>
+                <input clrInput name="qty" type="number" min="1" required [(ngModel)]="qty">
+            </clr-input-container>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="showTradeModal = false">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="submitTrade()">Ok</button>
+    </div>
+</clr-modal>

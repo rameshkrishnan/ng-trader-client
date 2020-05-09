@@ -1,0 +1,18 @@
+<h1>Login</h1>
+<div class="clr-row">
+    <div class="clr-col-md-4 clr-col-xs-12 clr-col-sm-8 clr-col-lg-4">
+        <form clrForm clrLayout="vertical" (ngSubmit)="onSubmit()">
+            <clr-select-container>
+                <label>Select the Username</label>
+                <select clrSelect name="user" [(ngModel)]="selectedUser">
+                    <option *ngFor="let user of users" [ngValue]="user">{{user.name}}</option>
+                </select>
+            </clr-select-container>
+            <clr-control-container>
+                <button type="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> LOGIN
+                </button>
+            </clr-control-container>
+        </form>
+    </div>
+</div>

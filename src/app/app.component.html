@@ -1,0 +1,28 @@
+<clr-main-container>
+  <div class="alert alert-app-level"></div>
+  <clr-header>
+    <div class="branding">
+        <a href="/" class="nav-link">
+            <clr-icon shape="piggy-bank"></clr-icon>
+            <span class="title">{{title}}</span>
+        </a>
+    </div>
+    <div class="header-actions" *ngIf="user != null">
+        <clr-dropdown>
+            <button class="nav-text" clrDropdownTrigger aria-label="open user profile">
+                {{user.name}}
+                <clr-icon shape="caret down"></clr-icon>
+            </button>
+            <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+                <a clrDropdownItem (click)="logout()">Log out</a>
+            </clr-dropdown-menu>
+        </clr-dropdown>
+    </div>
+  </clr-header>
+  <div class="content-container">
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <footer>&copy; 2020 <a href="https://github.com/rameshkrishnan/ng-trader-client">Trader Client</a></footer>
+</clr-main-container>
