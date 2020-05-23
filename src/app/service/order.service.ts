@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 import { environment as env } from 'src/environments/environment';
 import { InstrumentsService } from './instruments.service';
 import { LoggerService } from './logger.service';
 import { Order } from '../model/order.model';
 import { User } from '../model/user.model';
-import { UserSessionService } from './user-session.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class OrderService {
   private side = ['Buy', 'Sell'];
 
   constructor(private http: HttpClient, private instrumentsService: InstrumentsService,
-              private userSessionService: UserSessionService, private logger: LoggerService) { }
+              private authService: AuthService, private logger: LoggerService, private toastr: ToastrService) { }
 
   get() {
     return this.http.get<Array<Order>>(this.url);
@@ -24,7 +25,7 @@ export class OrderService {
 
   createOrder(qty: number) {
     this.instrumentsService.get().subscribe((instruments) => {
-      const user: User = this.userSessionService.get();
+      const user: User = this.authService.get();
 
       for (let i = 1; i <= qty; i++) {
         const sideIndex = this.random(0, 1);
@@ -40,7 +41,10 @@ export class OrderService {
             traderId: user.id
         };
         this.http.post(this.url, orderData).subscribe((response: any) => {
-          this.logger.log('Order ' + response.id + ' has been successfully placed to server for execution');
+          this.toastr.success('Order ' + response.id + ' has been successfully placed to server for execution');
+        }, (error) => {
+          this.toastr.error('Error posting order. please try again');
+          this.logger.error(error);
         });
       }
     });

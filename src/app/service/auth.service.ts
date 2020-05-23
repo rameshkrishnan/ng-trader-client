@@ -10,7 +10,7 @@ export const BROWSER_STORAGE = new InjectionToken<Storage>('Browser Storage', {
 @Injectable({
   providedIn: 'root'
 })
-export class UserSessionService {
+export class AuthService {
 
   constructor(@Inject(BROWSER_STORAGE) public storage: Storage) { }
 
@@ -20,6 +20,11 @@ export class UserSessionService {
 
   get() {
     return JSON.parse(this.storage.getItem('trader'));
+  }
+
+  isLoggedIn() {
+    if (this.get() != null) { return true; }
+    else { return false; }
   }
 
   logout() {
