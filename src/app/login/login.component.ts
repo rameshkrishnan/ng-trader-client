@@ -13,7 +13,7 @@ import { User } from '../model/user.model';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   users: Array<User> = [];
-  selectedUser: User;
+  selectedUser!: User;
 
   constructor(private userService: UserService, private authService: AuthService,
               private router: Router, private toastr: ToastrService) { }

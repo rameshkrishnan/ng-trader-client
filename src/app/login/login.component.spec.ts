@@ -6,6 +6,7 @@ import { ClarityModule } from '@clr/angular';
 
 import { LoginComponent } from './login.component';
 import { UserService } from '../service/user.service';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -14,9 +15,10 @@ describe('LoginComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
-      imports: [ RouterTestingModule, HttpClientTestingModule, ClarityModule ],
+      imports: [ RouterTestingModule, HttpClientTestingModule, ClarityModule, ToastrModule.forRoot() ],
       providers: [
-        { provide: UserService }
+        { provide: UserService },
+        { provide: ToastrService }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })

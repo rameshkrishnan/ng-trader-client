@@ -19,7 +19,11 @@ export class AuthService {
   }
 
   get() {
-    return JSON.parse(this.storage.getItem('trader'));
+    const userStr = this.storage.getItem('trader');
+    if(userStr != null) {
+      return JSON.parse(userStr) as User;
+    }
+    return null!;
   }
 
   isLoggedIn() {
@@ -28,6 +32,6 @@ export class AuthService {
   }
 
   logout() {
-    this.set(null);
+    this.storage.removeItem('trader');
   }
 }

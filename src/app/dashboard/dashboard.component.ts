@@ -56,14 +56,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
     this.socket.fromEvent('executionCreatedEvent').subscribe((data) => {
       const odata = data as OrderExecuted;
-      const item = this.orders.find(oitem => oitem.id === odata.orderId);
+      const item = this.orders.find(oitem => oitem.id === odata.orderId) as Order;
       item.quantityExecuted += odata.quantityExecuted;
       item.limitPrice = odata.executionPrice;
       item.status = odata.status;
     });
     this.socket.fromEvent('placementCreatedEvent').subscribe((data) => {
       const odata = data as OrderPlaced;
-      const item = this.orders.find(oitem => oitem.id === odata.orderId);
+      const item = this.orders.find(oitem => oitem.id === odata.orderId) as Order;
       item.quantityPlaced += odata.quantityPlaced;
       item.status = odata.status;
     });

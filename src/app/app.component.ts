@@ -12,14 +12,14 @@ import { User } from './model/user.model';
 })
 export class AppComponent implements OnInit {
   title = 'Trader Client';
-  user: User;
+  user!: User;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
+    ).subscribe(() => {
         this.user = this.authService.get();
     });
   }
